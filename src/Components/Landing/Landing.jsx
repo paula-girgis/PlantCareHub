@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Footer from '../Footer/Footer';
 import { motion } from 'framer-motion';
@@ -14,22 +13,37 @@ import F7 from '../../assets/gradMaterial/A7.png';
 import F8 from '../../assets/gradMaterial/A8.png'; 
 
 const images = [
-    { id: 1, src: F1, caption: "Fungal disease affects apples Bright orange spots on leaves,Spread by cedar" },
-    { id: 2, src: F2, caption: "Thrives in well-drained soil.Green leaves, firm fruit.No signs of disease." },
-    { id: 3, src: F3, caption: "Caused by heat, water stress.Dry, brown edges on leaves.Affects growth and yield."},
-    { id: 4, src: F4, caption: "Stunts growth, reduces yield.Spread by whitefly insects.Curling, yellowing leaves." },
-    { id: 5, src: F5, caption: "Thrives in warm, moist conditions.Dark, concentric spots on leaves.Fungal disease, reduces yield."},
-    { id: 6, src: F6, caption: "Bright green leaves, red berries.No signs of pests or disease,Grows in well-drained soil."},
-    { id: 7, src: F7,caption: "Vibrant green leaves, ripe grapes.No signs of pests or disease.Thrives in well-drained soil."},
-    { id: 8, src: F8,caption: "Firm, smooth skin, healthy leaves.No pests or disease present.Grows in well-drained soil."},
+    { id: 1, src: F1, caption: "Fungal disease affects apples. Bright orange spots on leaves. Spread by cedar." },
+    { id: 2, src: F2, caption: "Thrives in well-drained soil. Green leaves, firm fruit. No signs of disease." },
+    { id: 3, src: F3, caption: "Caused by heat, water stress. Dry, brown edges on leaves. Affects growth and yield." },
+    { id: 4, src: F4, caption: "Stunts growth, reduces yield. Spread by whitefly insects. Curling, yellowing leaves." },
+    { id: 5, src: F5, caption: "Thrives in warm, moist conditions. Dark, concentric spots on leaves. Fungal disease, reduces yield." },
+    { id: 6, src: F6, caption: "Bright green leaves, red berries. No signs of pests or disease. Grows in well-drained soil." },
+    { id: 7, src: F7, caption: "Vibrant green leaves, ripe grapes. No signs of pests or disease. Thrives in well-drained soil." },
+    { id: 8, src: F8, caption: "Firm, smooth skin, healthy leaves. No pests or disease present. Grows in well-drained soil." },
 ];
 
 export default function Landing() {
   const navigate = useNavigate();
   const [scrollDirection, setScrollDirection] = useState('down');
 
+
+  const isUserLoggedIn = () => {
+    const userToken = localStorage.getItem('userToken');
+    console.log("User Token: ", userToken); // Debugging line
+    return userToken !== null; // User is logged in if there is a token
+  };
+  
   const handleImageClick = () => {
-    navigate('/login');};
+    if (isUserLoggedIn()) {
+      // User is logged in, navigate to the library
+      navigate('/home');
+    } else {
+      // User is not logged in, navigate to login page
+      navigate('/login');
+    }
+  };
+
 
   const scrollToSection = () => {
     if (scrollDirection === 'down') {
@@ -38,8 +52,9 @@ export default function Landing() {
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       setScrollDirection('down');
-    }};
-    
+    }
+  };
+
   return (
     <>
       <div className="FirstLanding flex items-center justify-center">
@@ -48,15 +63,18 @@ export default function Landing() {
             className="font text-white font-extrabold mb-10"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}>Find your plant to <br /> care here</motion.h1>
+            transition={{ duration: 1 }}
+          >
+            Find your plant to <br /> care here
+          </motion.h1>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.5 }}
           >
             <p className="text-white pb-8 font-bold text-xl mb-6">
-              Plant care involves several key aspects <br /> 
-              to ensure your plants remain healthy <br /> and thrive
+              Plant care involves several key aspects <br />
+              to ensure your plants remain healthy <br /> and thrive.
             </p>
           </motion.div>
         </div>
@@ -72,7 +90,7 @@ export default function Landing() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               animate={{ y: [0, -10, 0] }}
-              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
               className="overflow-hidden rounded-lg shadow-lg cursor-pointer relative group"
               onClick={handleImageClick}
             >
@@ -98,7 +116,7 @@ export default function Landing() {
         whileTap={{ scale: 0.9 }}
         initial={{ y: 100 }}
         animate={{ y: 0 }}
-        transition={{ type: "spring", stiffness: 200 }}
+        transition={{ type: 'spring', stiffness: 200 }}
       >
         {scrollDirection === 'down' ? (
           <span className="text-2xl">↓</span>
