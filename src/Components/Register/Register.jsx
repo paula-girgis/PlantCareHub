@@ -1,5 +1,4 @@
-
-import React, { useContext } from 'react'
+import React from 'react'
 import { useState } from 'react' 
 import { useFormik } from 'formik';
 import axios from 'axios';
@@ -24,8 +23,7 @@ export default function Register() {
 
       Email:Yup.string().email('Invalid email!').required('email required'),
       Phone:Yup.string().matches(/^01[0125]\d{8}$/, 'invalid phone number..').required(' phone required'),
- password: Yup.string()
-      .matches(/^(?=.*[A-Za-z])(?=.*\d).{8,}$/, 'Password must contain at least one letter, one number, and be at least 8 characters long.')
+      Password:Yup.string().matches(/^[A-Za-z\d@$!%*?&]{8,100}$/, 'Password must contain at least one letter, one number, and be at least 8 characters long.')
       .required('Password is required'),
       ConfirmPassword:Yup.string().required('repassword required').oneOf([Yup.ref('Password')], 'Passwords must match'),
 
@@ -52,7 +50,7 @@ async function handleRegister(vals) {
     let formik = useFormik({
       initialValues:{
         name:'',
-        Email:'',
+        email:'',
         Password:'',
         ConfirmPassword:'',
         Phone:''
@@ -64,9 +62,7 @@ async function handleRegister(vals) {
 return <>
     <div className="regiserBack p-5 ">
       <div className="container px-4 mx-auto mt-20 pb-12 ">
-        {apiError ? (<div className="mt-5 p-4 m-4 text-sm text-red-800 rounded-lg bg-red-200" role="alert">{apiError}
-          </div>
-        ) : null}
+        {apiError ? (<div className="mt-5 p-4 m-4 text-sm text-red-800 rounded-lg bg-red-200" role="alert">{apiError}</div>) : null}
 
         <div className="flex flex-col lg:flex-row items-center justify-between shadow-2xl rounded-lg w-full max-w-5xl mx-auto pb-12 p-8">
 
@@ -124,6 +120,8 @@ return <>
              {isLoading?<i className='fas fa-spinner fa-spin' ></i> : "Sign Up"}
            </button>
 
+
+
            <div className=''>
            <p className=" mt-6 text-center text-gray-700">Already have an account?<Link to={'/login'}> <span className='text-main'>Login</span></Link> </p>
 
@@ -135,4 +133,4 @@ return <>
         
     </div>
   </>
-}
+               }
