@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -44,20 +43,12 @@ const Home = () => {
 
   return <>
     <section className="relative w-full h-screen bg-cover bg-center flex items-center justify-center main">
-          <div className="bg-white/20 justify-center items-center backdrop-blur-md rounded-lg p-8 lg:p-12 -lg w-4/5 h-2/4 text-center 
-            animate-fade-in-up transition-all duration-1000 ease-in-out relative z-10" >
-                <div className="absolute inset-0 w-full h-full bg-transparent pointer-events-none">
         
-          </div>
-         
-      <h1 className="text-6xl font lg:text-7xl font-bold text-gray-50 m-4 animate-bounce transition-all duration-1 ease-in-out p-2">Start your green journey, <br />today</h1>
-            
-          </div>
+      <h1 className="text-6xl text-center font lg:text-7xl font-extrabold text-gray-100 m-4 animate-bounce transition-all duration-1 ease-in-out">Start your green journey today. <br /> </h1>
 
     </section>
     
       <section className="pb-32 regiserBack relative ">
-          {/*  Slider */}
           <section className="pt-20 pb-24">
               <h2 className="text-6xl text-center font-extrabold Color mb-6 font">
                 Explore Our Services
@@ -78,7 +69,6 @@ const Home = () => {
             modules={[Autoplay, Pagination]}
             className="rounded-full shadow-lg"
           >
-            {/* الشريحة الأولى */}
             <SwiperSlide>
               <div className="flex flex-col lg:flex-row items-center justify-center gap-10 bg-green-900 text-white rounded-lg p-10">
                 <div className="text-center lg:text-left">
@@ -94,7 +84,6 @@ const Home = () => {
               </div>
             </SwiperSlide>
 
-            {/* الشريحة الثانية */}
             <SwiperSlide>
               <div className="flex flex-col lg:flex-row items-center justify-center gap-10 bg-gray-100 text-green-800 rounded-lg p-10">
                 <img src={Library} alt="Library of Plants"
@@ -107,7 +96,6 @@ const Home = () => {
               </div>
             </SwiperSlide>
 
-            {/* الشريحة الثالثة */}
             <SwiperSlide>
               <div className="flex flex-col lg:flex-row items-center justify-center gap-10 bg-green-900 text-white rounded-lg p-10">
                 <div className="text-center lg:text-left">
@@ -123,7 +111,6 @@ const Home = () => {
       </section>
 
 
-            {/* Dark Overlay */}
             <div className="absolute inset-0 bg-black bg-opacity-5 z-0"></div>
           
             <div className="container mx-auto text-center relative z-10">
