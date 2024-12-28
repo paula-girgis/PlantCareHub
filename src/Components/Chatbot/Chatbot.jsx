@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import Footer from "../Footer/Footer";
 import { motion } from 'framer-motion';
@@ -58,7 +59,7 @@ export default function Chatbot() {
     }
   };
   const formatResponse = (text) => {
-    const cleanedText = text.replace(/\\/g, ""); // Remove all stars
+    const cleanedText = text.replace(/\*\*/g, ""); // Remove all stars
     return cleanedText
       .split(/\d+\.\s+/) // Split by numbered titles
       .filter((part) => part.trim() !== "") // Remove empty parts
@@ -67,7 +68,7 @@ export default function Chatbot() {
         const body = rest.join(":").trim();
         return (
           <div key={index} className="mb-4">
-            <p className="font-bold text-gray-300">{${title.trim()}:}</p>
+            <p className="font-bold text-gray-300">{`${title.trim()}:`}</p>
             <p className="text-gray-300">{body}</p>
           </div>
         );
@@ -146,3 +147,4 @@ export default function Chatbot() {
     </>
   );
 }
+
