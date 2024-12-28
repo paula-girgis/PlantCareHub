@@ -1,4 +1,3 @@
-
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
@@ -55,7 +54,7 @@ export default function Plants() {
 
   function getPlants(){
    setisLoading(true);
-      axios.get(`/api/library/getall`)
+      axios.get(/api/library/getall)
       .then( ({data})=>{
         console.log(data);
         setPlants(data)
@@ -99,7 +98,7 @@ export default function Plants() {
   
 
   return <>  
-        <div className="bg-gray-200 pt-20">
+        <div className="bg-gray-200 regiserBack pt-20">
             <motion.h2 className="homeFont  font-extrabold sm:text-2xl lg:text-5xl text-center p-4" initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }}transition={{ duration: 1 }}>
                 "Every drooping leaf is a story untold"
             </motion.h2>
@@ -135,7 +134,7 @@ export default function Plants() {
   Plants.map((plant) => (
     <div key={plant.imageId} className="w-1/4 p-1">
       <div className="plant mt-2 me-4">
-        <Link to={`/plantDetails/${plant.diseaseId}`}>
+        <Link to={/plantDetails/${plant.diseaseId}}>
           <img className="w-full h-48 rounded-2xl" src={plant.imageUrl} alt={plant.plantName || "Unknown Plant"} />
           <span className="block text-center p-2 text-green-700">{plant.plantName || "Unknown Plant"}</span>
           <h3 className="text-lg font-normal text-center text-gray-800 mb-4">
