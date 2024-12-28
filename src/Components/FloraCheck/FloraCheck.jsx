@@ -10,15 +10,16 @@ export default function FloraCheck() {
   const [errorMessage, setErrorMessage] = useState(null);
   const videoRef = useRef(null);
   const streamRef = useRef(null);
-  const [scrollDirection, setScrollDirection] = useState("down");
+
+  const [scrollDirection, setScrollDirection] = useState('down');
 
   const scrollToSection = () => {
-    if (scrollDirection === "down") {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-      setScrollDirection("up");
+    if (scrollDirection === 'down') {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      setScrollDirection('up');
     } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      setScrollDirection("down");
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setScrollDirection('down');
     }
   };
 
@@ -26,6 +27,7 @@ export default function FloraCheck() {
     setIsLoading(true);
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+
       streamRef.current = stream;
 
       if (videoRef.current) {
@@ -34,12 +36,10 @@ export default function FloraCheck() {
       }
 
       setIsCameraOpen(true);
-      setErrorMessage(null);
+      setErrorMessage(null);  
     } catch (err) {
       console.error("Error accessing the camera: ", err);
-      setErrorMessage(
-        "Could not access the camera. Please check your device or browser settings."
-      );
+      setErrorMessage("Could not access the camera. Please check your device or browser settings.");
     } finally {
       setIsLoading(false);
     }
@@ -142,24 +142,158 @@ export default function FloraCheck() {
   };
 
   const stripHtml = (html) => {
-    // Remove unnecessary Markdown or HTML-like formatting
-    html = html.replace(/.*?\n/g, "").replace(/<.*?>/g, "");
+    // Remove Markdown code block formatting (e.g., html or ).
+    html = html.replace(/.*?\n/g, '').replace(//g, '');
 
-    // Remove the JSON-like "predicted_class" key and extract its value
-    var predictedClassMatch = html.match(/"predicted_class":"(.*?)"/);
+    // Remove the JSON-like "predicted_class" key and extract its value.
+    const predictedClassMatch = html.match(/"predicted_class":"(.*?)"/);
     if (predictedClassMatch) {
-      html = predictedClassMatch[1];
+        html = html.replace(/"predicted_class":"(.*?)"/, predictedClassMatch[1]);
     }
 
-    // Parse remaining HTML to extract plain text
+    // Parse the remaining HTML to extract plain text.
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, "text/html");
-    return (doc.body.textContent || "").trim();
-  };
+    let textContent = doc.body.textContent || "";
+
+    // Remove any additional HTML tags and clean up text.
+    textContent = textContent.replace(/<[^>]*>/g, '').trim();
+
+    return textContent;
+};
 
   return (
     <>
-      {/* Code omitted for brevity - same as the original UI structure */}
+      {isLoading && (
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+          <div className="loader border-t-4 border-green-500 w-16 h-16 rounded-full animate-spin"></div>
+        </div>
+      )}
+
+      <main className="regiserBack py-16 mx-auto flex flex-col items-center flex-grow">
+        <motion.h2 className="homeFont text-center mt-14 mb-10 text-6xl font-extrabold text-green-950" initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}>AI-Powered FloraCheck</motion.h2>
+
+        <motion.p
+          className="text-center container  p-4 text-lg font-medium text-green-800"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, delay: 0.5 }}
+          whileHover={{ scale: 1.05 }}
+        >
+          Discover plant health like never before! Upload or capture a plant image, and let our AI detect diseases, symptoms, and solutions instantly.
+        </motion.p>
+
+        <div className="mt-8 flex flex-col items-center space-y-6 w-full">
+          {response ? (
+            <motion.div
+              className="relative border-dashed border-4 border-green-500 rounded-xl shadow-lg p-6 w-3/4 flex flex-col items-center space-y-6 min-h-[300px] bg-gray-900 text-white"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <p className="text-xl">
+                <span className="text-green-400 font-extrabold">Disease:</span> {stripHtml(response.diseaseName)}
+              </p>
+              <div
+                className="bg-gray-800 p-4 rounded-lg shadow-md"
+                dangerouslySetInnerHTML={{
+                  __html: `
+                     <div style="text-align: justify; font-family: Arial, sans-serif; line-height: 1.6;">
+            <strong style="color:rgb(7, 239, 123);">Symptoms:</strong> ${stripHtml(response.chatbotReply).split('Cause:')[0].trim()}
+            <br><br>
+            <strong style="color:rgb(7, 239, 123);">Cause:</strong> ${stripHtml(response.chatbotReply).split('Treatment:')[0].split('Cause:')[1].trim()}
+            <br><br>
+            <strong style="color:rgb(7, 239, 123);">Treatment:</strong> ${stripHtml(response.chatbotReply).split('Treatment:')[1].trim()}
+          </div>
+                    `
+                }}
+              />
+              <button
+                onClick={resetProcess}
+                className="mt-4 bg-green-800 text-white px-8 py-3 rounded-full text-lg shadow-md hover:bg-green-600 hover:scale-105 transition duration-300"
+              >
+                Start Again
+              </button>
+            </motion.div>
+          ) : (
+            <>
+              {errorMessage && (
+                <div className="text-red-500 bg-red-100 p-4 rounded-lg">
+                  <p>Error: {errorMessage}</p>
+                </div>
+              )}
+
+              <div className="relative border-dashed border-4 border-green-500 rounded-xl shadow-lg p-6 w-3/4 flex items-center justify-center min-h-[300px]">
+                {imagePreviewUrl ? (
+                  <img
+                    src={imagePreviewUrl}
+                    alt="Preview"
+                    className="w-auto h-full max-h-[300px] object-contain rounded-lg"
+                  />
+                ) : (
+                  <p className="text-green-900">No image or camera feed yet. Start by selecting an option below.</p>
+                )}
+              </div>
+
+              <div className="flex flex-col items-center space-y-4">
+                <button
+                  onClick={startCamera}
+                  className="bg-green-800 text-white mt-10 px-14 py-3 rounded-full text-lg shadow-md hover:bg-green-600 hover:scale-105 transition duration-300"
+                >
+                  Open Camera
+                </button>
+
+                {isCameraOpen && (
+                  <button
+                    onClick={capturePhoto}
+                    className="bg-green-800 text-white mt-10 px-14 py-3 rounded-full text-lg shadow-md hover:bg-green-600 hover:scale-105 transition duration-300"
+                  >
+                    Capture Photo
+                  </button>
+                )}
+
+                <input type="file" accept="image/*" onChange={handleUploadPhoto} className="hidden" id="file-upload"/>
+                <label
+                  htmlFor="file-upload"
+                  className="bg-green-800 text-white px-8 py-3 rounded-full text-lg shadow-md hover:bg-green-600 hover:scale-105 transition duration-300 flex items-center justify-center cursor-pointer"
+                >
+                  Upload Photo
+                </label>
+              </div>
+
+              {imagePreviewUrl && (
+                <motion.button
+                  onClick={sendToBackend}
+                  className="bg-green-800 text-white mt-10 px-14 py-3 rounded-full text-lg shadow-md hover:bg-green-600 hover:scale-105 transition duration-300"
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1 }}
+                >
+                  Check Disease
+                </motion.button>
+              )}
+            </>
+          )}
+        </div>
+      </main>
+
+      <motion.button
+        onClick={scrollToSection}
+        className="fixed bottom-8 right-8 bg-gradient-to-r from-green-900 via-green-600 to-green-700 text-white p-5 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+        whileHover={{ scale: 1.2 }}
+        whileTap={{ scale: 0.9 }}
+        initial={{ y: 100 }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 200 }}
+      >
+        {scrollDirection === 'down' ? (
+          <span className="text-2xl">↓</span>
+        ) : (
+          <span className="text-2xl">↑</span>
+        )}
+      </motion.button>
     </>
   );
 }
