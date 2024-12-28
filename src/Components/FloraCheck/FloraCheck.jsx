@@ -91,6 +91,7 @@ export default function FloraCheck() {
     setIsLoading(true);
     const formData = new FormData();
   
+    // Prepare the file to send
     if (uploadedFile) {
       formData.append("file", uploadedFile);
     } else {
@@ -98,25 +99,32 @@ export default function FloraCheck() {
     }
   
     try {
-      const response = await fetch("/api/FloraCheck/predict", {
-        method: "POST",
-        body: formData,
-      });
+      // Set a timeout for the fetch request (using Promise.race to handle timeout)
+      const response = await Promise.race([
+        fetch("/api/FloraCheck/predict", {
+          method: "POST",
+          body: formData,
+        }),
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Request timed out")), 10000) // Timeout after 10 seconds
+        ),
+      ]);
   
       if (!response.ok) {
         const errorText = await response.text();
         console.error("Error response text:", errorText);
-        setErrorMessage( errorText);
+        setErrorMessage(errorText || "An error occurred while processing your request.");
         return;
       }
   
-      // Attempt to parse the response as JSON, fallback to plain text
+      // Attempt to parse as JSON first
       let result;
       try {
         result = await response.json();
         setResponse(result);
         setErrorMessage(null);
       } catch (jsonError) {
+        // If parsing JSON fails, try plain text response
         const textResponse = await response.text();
         console.warn("Failed to parse JSON, falling back to text:", textResponse);
         setResponse({ message: textResponse }); // Wrap text response in an object for consistency
@@ -124,11 +132,18 @@ export default function FloraCheck() {
       }
     } catch (error) {
       console.error("Error:", error);
-      setErrorMessage(error.message || "An unexpected error occurred.");
+  
+      // Handle timeout or any other errors
+      if (error.message === "Request timed out") {
+        setErrorMessage("The request timed out. Please try again later.");
+      } else {
+        setErrorMessage(error.message || "An unexpected error occurred.");
+      }
     } finally {
       setIsLoading(false);
     }
   };
+  
   
   const resetProcess = () => {
     setResponse(null);
