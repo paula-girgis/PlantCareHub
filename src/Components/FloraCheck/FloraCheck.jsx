@@ -172,7 +172,7 @@ export default function FloraCheck() {
     // Remove the JSON-like "predicted_class" key and extract its value.
     const predictedClassMatch = html.match(/"predicted_class":"(.*?)"/);
     if (predictedClassMatch) {
-        html = html.replace(/"predicted_class":"(.*?)"/, predictedClassMatch[1]);
+      html = html.replace(/"predicted_class":"(.*?)"/, ''); // Removes the predicted_class part
     }
 
     // Parse the remaining HTML to extract plain text.
