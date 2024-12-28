@@ -54,7 +54,7 @@ export default function Plants() {
 
   function getPlants(){
    setisLoading(true);
-      axios.get(/api/library/getall)
+      axios.get(`/api/library/getall`)
       .then( ({data})=>{
         console.log(data);
         setPlants(data)
