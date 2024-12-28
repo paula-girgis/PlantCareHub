@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Footer from "../Footer/Footer";
 import { motion } from 'framer-motion';
@@ -8,25 +7,6 @@ export default function Chatbot() {
   const [query, setQuery] = useState(""); // السؤال
   const [response, setResponse] = useState(""); // الرد من الـ API
   const [loading, setLoading] = useState(false); // حالة التحميل
-
-
-
-
-    const [scrollDirection, setScrollDirection] = useState('down');
-  
-  
-  
-    const scrollToSection = () => {
-      if (scrollDirection === 'down') {
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        setScrollDirection('up');
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        setScrollDirection('down');
-      }
-    };
-
-
 
   // استدعاء الـ API
   async function askChatbot(question) {
@@ -68,6 +48,8 @@ export default function Chatbot() {
       return;
     }
     askChatbot(query);
+    setQuery(""); // مسح الرسالة بعد الإرسال
+
   };
 
   const handleKeyDown = (e) => {
@@ -75,6 +57,23 @@ export default function Chatbot() {
       handleSearch();
     }
   };
+  const formatResponse = (text) => {
+    const cleanedText = text.replace(/\\/g, ""); // Remove all stars
+    return cleanedText
+      .split(/\d+\.\s+/) // Split by numbered titles
+      .filter((part) => part.trim() !== "") // Remove empty parts
+      .map((part, index) => {
+        const [title, ...rest] = part.split(":");
+        const body = rest.join(":").trim();
+        return (
+          <div key={index} className="mb-4">
+            <p className="font-bold text-gray-300">{${title.trim()}:}</p>
+            <p className="text-gray-300">{body}</p>
+          </div>
+        );
+      });
+  };
+  
 
   return (
     <>
@@ -133,7 +132,7 @@ export default function Chatbot() {
       <div className="flex justify-start items-center space-x-4 mb-4">
         <div className="relative bg-gray-800 backdrop-blur-md px-6 py-4 max-w-[80%] border border-green-500/30 rounded-3xl shadow-xl transform transition-all duration-300 hover:scale-105">
           <div className="absolute -bottom-3 left-5 w-4 h-4 bg-gray-800 transform rotate-45 border border-green-500/30"></div>
-          <p className="text-white">{response.reply}</p>
+          <p className="text-white">{formatResponse(response.reply)}</p>
         </div>
       </div>
     </>
@@ -144,26 +143,6 @@ export default function Chatbot() {
 
       </main>
       <Footer />
-
-
-      
-      <motion.button
-                onClick={scrollToSection}
-                className="fixed bottom-8 right-8 bg-gradient-to-r from-green-900 via-green-600 to-green-700 text-white p-5 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
-                initial={{ y: 100 }}
-                animate={{ y: 0 }}
-                transition={{ type: "spring", stiffness: 200 }}
-              >
-                {scrollDirection === 'down' ? (
-                  <span className="text-2xl">↓</span>
-                ) : (
-                  <span className="text-2xl">↑</span>
-                )}
-              </motion.button>
-  
     </>
   );
 }
-
