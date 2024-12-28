@@ -11,17 +11,17 @@ export default function FloraCheck() {
   const videoRef = useRef(null);
   const streamRef = useRef(null);
 
-  const [scrollDirection, setScrollDirection] = useState('down');
-
-  const scrollToSection = () => {
-    if (scrollDirection === 'down') {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-      setScrollDirection('up');
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      setScrollDirection('down');
-    }
-  };
+    const [scrollDirection, setScrollDirection] = useState('down');
+  
+    const scrollToSection = () => {
+      if (scrollDirection === 'down') {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        setScrollDirection('up');
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setScrollDirection('down');
+      }
+    };
 
   const startCamera = async () => {
     setIsLoading(true);
@@ -29,7 +29,7 @@ export default function FloraCheck() {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
 
       streamRef.current = stream;
-
+      
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
         videoRef.current.play();
@@ -90,37 +90,46 @@ export default function FloraCheck() {
   const sendToBackend = async () => {
     setIsLoading(true);
     const formData = new FormData();
-
+  
     if (uploadedFile) {
       formData.append("file", uploadedFile);
     } else {
       formData.append("file", dataUrlToFile(imagePreviewUrl, "plant_image.png"));
     }
-
+  
     try {
       const response = await fetch("/api/FloraCheck/predict", {
         method: "POST",
         body: formData,
       });
-
+  
       if (!response.ok) {
-        const errorData = await response.json();
-        const errorDetails = errorData.details || "An unexpected error occurred.";
-        setErrorMessage(errorDetails);
-        throw new Error(errorDetails);
+        const errorText = await response.text();
+        console.error("Error response text:", errorText);
+        setErrorMessage( errorText);
+        return;
       }
-
-      const result = await response.json();
-      setResponse(result);
-      setErrorMessage(null);
+  
+      // Attempt to parse the response as JSON, fallback to plain text
+      let result;
+      try {
+        result = await response.json();
+        setResponse(result);
+        setErrorMessage(null);
+      } catch (jsonError) {
+        const textResponse = await response.text();
+        console.warn("Failed to parse JSON, falling back to text:", textResponse);
+        setResponse({ message: textResponse }); // Wrap text response in an object for consistency
+        setErrorMessage(null);
+      }
     } catch (error) {
       console.error("Error:", error);
-      setErrorMessage(error.message);
+      setErrorMessage(error.message || "An unexpected error occurred.");
     } finally {
       setIsLoading(false);
     }
   };
-
+  
   const resetProcess = () => {
     setResponse(null);
     setImagePreviewUrl(null);
@@ -142,8 +151,8 @@ export default function FloraCheck() {
   };
 
   const stripHtml = (html) => {
-    // Remove Markdown code block formatting (e.g., html or ).
-    html = html.replace(/.*?\n/g, '').replace(//g, '');
+    // Remove Markdown code block formatting (e.g., ```html or ```).
+    html = html.replace(/```.*?\n/g, '').replace(/```/g, '');
 
     // Remove the JSON-like "predicted_class" key and extract its value.
     const predictedClassMatch = html.match(/"predicted_class":"(.*?)"/);
@@ -185,38 +194,39 @@ export default function FloraCheck() {
           Discover plant health like never before! Upload or capture a plant image, and let our AI detect diseases, symptoms, and solutions instantly.
         </motion.p>
 
+      
         <div className="mt-8 flex flex-col items-center space-y-6 w-full">
           {response ? (
             <motion.div
-              className="relative border-dashed border-4 border-green-500 rounded-xl shadow-lg p-6 w-3/4 flex flex-col items-center space-y-6 min-h-[300px] bg-gray-900 text-white"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <p className="text-xl">
-                <span className="text-green-400 font-extrabold">Disease:</span> {stripHtml(response.diseaseName)}
-              </p>
-              <div
-                className="bg-gray-800 p-4 rounded-lg shadow-md"
-                dangerouslySetInnerHTML={{
-                  __html: `
-                     <div style="text-align: justify; font-family: Arial, sans-serif; line-height: 1.6;">
+            className="relative border-dashed border-4 border-green-500 rounded-xl shadow-lg p-6 w-3/4 flex flex-col items-center space-y-6 min-h-[300px] bg-gray-900 text-white"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <p className="text-xl">
+              <span className="text-green-400 font-extrabold">Disease:</span> {stripHtml(response.diseaseName)}
+            </p>
+            <div
+              className="bg-gray-800 p-4 rounded-lg shadow-md"
+              dangerouslySetInnerHTML={{
+                __html: `
+                   <div style="text-align: justify; font-family: Arial, sans-serif; line-height: 1.6;">
             <strong style="color:rgb(7, 239, 123);">Symptoms:</strong> ${stripHtml(response.chatbotReply).split('Cause:')[0].trim()}
             <br><br>
             <strong style="color:rgb(7, 239, 123);">Cause:</strong> ${stripHtml(response.chatbotReply).split('Treatment:')[0].split('Cause:')[1].trim()}
             <br><br>
             <strong style="color:rgb(7, 239, 123);">Treatment:</strong> ${stripHtml(response.chatbotReply).split('Treatment:')[1].trim()}
           </div>
-                    `
-                }}
-              />
-              <button
-                onClick={resetProcess}
-                className="mt-4 bg-green-800 text-white px-8 py-3 rounded-full text-lg shadow-md hover:bg-green-600 hover:scale-105 transition duration-300"
-              >
-                Start Again
-              </button>
-            </motion.div>
+                `
+              }}
+            />
+            <button
+              onClick={resetProcess}
+              className="mt-4 bg-green-800 text-white px-8 py-3 rounded-full text-lg shadow-md hover:bg-green-600 hover:scale-105 transition duration-300"
+            >
+              Start Again
+            </button>
+          </motion.div>
           ) : (
             <>
               {errorMessage && (
@@ -279,21 +289,19 @@ export default function FloraCheck() {
         </div>
       </main>
 
-      <motion.button
-        onClick={scrollToSection}
-        className="fixed bottom-8 right-8 bg-gradient-to-r from-green-900 via-green-600 to-green-700 text-white p-5 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-        whileHover={{ scale: 1.2 }}
-        whileTap={{ scale: 0.9 }}
-        initial={{ y: 100 }}
-        animate={{ y: 0 }}
-        transition={{ type: "spring", stiffness: 200 }}
-      >
-        {scrollDirection === 'down' ? (
-          <span className="text-2xl">↓</span>
-        ) : (
-          <span className="text-2xl">↑</span>
-        )}
-      </motion.button>
-    </>
-  );
+         <motion.button
+                onClick={scrollToSection}
+                className="fixed bottom-8 right-8 bg-gradient-to-r from-green-900 via-green-600 to-green-700 text-white p-5 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+                initial={{ y: 100 }}
+                animate={{ y: 0 }}
+                transition={{ type: "spring", stiffness: 200 }}
+              >
+                {scrollDirection === 'down' ? (
+                  <span className="text-2xl">↓</span>
+                ) : (
+                  <span className="text-2xl">↑</span>
+                )}
+              </motion.button></>);
 }
