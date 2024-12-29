@@ -83,7 +83,7 @@ export default function AboutUs() {
             <img 
               src={Doonya}
               alt="Donia Zeid" 
-              className="w-full h-48 object-cover rounded-xl mb-4"
+              className="w-full h-auto object-cover rounded-xl mb-4"
             />
             <h3 className="text-lg font-semibold text-gray-800">Donia Zeid</h3>
             <p className="text-sm text-gray-600">FrontEnd Developer</p>
@@ -99,7 +99,7 @@ export default function AboutUs() {
             <img 
               src={Paula}
               alt="Paula Gerges" 
-              className="w-full h-48 object-cover rounded-xl mb-4"
+              className="w-full h-auto object-cover rounded-xl mb-4"
             />
             <h3 className="text-lg font-semibold text-gray-800">Paula Gerges</h3>
             <p className="text-sm text-gray-600">AI Developer</p>
@@ -115,7 +115,7 @@ export default function AboutUs() {
             <img 
               src={Akram} 
               alt="Akram Benyameen" 
-              className="w-full h-48 object-cover rounded-xl mb-4"
+              className="w-full h-auto object-cover rounded-xl mb-4"
             />
             <h3 className="text-lg font-semibold text-gray-800">Akram Benyameen</h3>
             <p className="text-sm text-gray-600">BackEnd Developer</p>
@@ -131,7 +131,7 @@ export default function AboutUs() {
             <img 
               src={Menna}
               alt="Menna Magdy" 
-              className="w-full h-48 object-cover rounded-xl mb-4"
+              className="w-full h-auto object-cover rounded-xl mb-4"
             />
             <h3 className="text-lg font-semibold text-gray-800">Menna Magdy</h3>
             <p className="text-sm text-gray-600">UI/UX Designer</p>
