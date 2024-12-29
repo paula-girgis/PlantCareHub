@@ -3,6 +3,10 @@
 import React, { useState } from "react";
 import { motion } from 'framer-motion';
 import Web from '../../assets/gradMaterial/WEB2.jpeg'; 
+import Paula from '../../assets/gradMaterial/Paula Girgis.jpg'; 
+import Doonya from '../../assets/gradMaterial/Donia Ziad.jpg'; 
+import Menna from '../../assets/gradMaterial/Menna Magdy.jpg'; 
+import Akram from '../../assets/gradMaterial/Akram.png'; 
 
 export default function AboutUs() {
 
@@ -77,7 +81,7 @@ export default function AboutUs() {
             transition={{ duration: 1 }}
           >
             <img 
-              src="https://via.placeholder.com/150" 
+              src={Doonya}
               alt="Donia Zeid" 
               className="w-full h-48 object-cover rounded-xl mb-4"
             />
@@ -93,7 +97,7 @@ export default function AboutUs() {
             transition={{ duration: 1 }}
           >
             <img 
-              src="https://via.placeholder.com/150" 
+              src={Paula}
               alt="Paula Gerges" 
               className="w-full h-48 object-cover rounded-xl mb-4"
             />
@@ -109,7 +113,7 @@ export default function AboutUs() {
             transition={{ duration: 1 }}
           >
             <img 
-              src="https://via.placeholder.com/150" 
+              src={Akram} 
               alt="Akram Benyameen" 
               className="w-full h-48 object-cover rounded-xl mb-4"
             />
@@ -125,7 +129,7 @@ export default function AboutUs() {
             transition={{ duration: 1 }}
           >
             <img 
-              src="https://via.placeholder.com/150" 
+              src={Menna}
               alt="Menna Magdy" 
               className="w-full h-48 object-cover rounded-xl mb-4"
             />
