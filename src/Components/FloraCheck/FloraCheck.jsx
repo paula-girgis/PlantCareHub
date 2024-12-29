@@ -91,7 +91,6 @@ export default function FloraCheck() {
     setIsLoading(true);
     const formData = new FormData();
   
-    // Prepare the file to send
     if (uploadedFile) {
       formData.append("file", uploadedFile);
     } else {
@@ -99,32 +98,31 @@ export default function FloraCheck() {
     }
   
     try {
-      // Set a timeout for the fetch request (using Promise.race to handle timeout)
-      const response = await Promise.race([
-        fetch("/api/FloraCheck/predict", {
-          method: "POST",
-          body: formData,
-        }),
-        new Promise((_, reject) =>
-          setTimeout(() => reject(new Error("Request timed out")), 10000) // Timeout after 10 seconds
-        ),
-      ]);
+      const response = await fetch("/api/FloraCheck/predict", {
+        method: "POST",
+        body: formData,
+      });
   
       if (!response.ok) {
         const errorText = await response.text();
-        console.error("Error response text:", errorText);
-        setErrorMessage(errorText || "An error occurred while processing your request.");
+        try {
+          // Attempt to parse the error response as JSON to extract "details"
+          const errorJson = JSON.parse(errorText);
+          setErrorMessage(errorJson.details || "An error occurred.");
+        } catch {
+          // If parsing fails, fallback to showing the raw error text
+          setErrorMessage(errorText);
+        }
         return;
       }
   
-      // Attempt to parse as JSON first
+      // Attempt to parse the response as JSON
       let result;
       try {
         result = await response.json();
         setResponse(result);
         setErrorMessage(null);
       } catch (jsonError) {
-        // If parsing JSON fails, try plain text response
         const textResponse = await response.text();
         console.warn("Failed to parse JSON, falling back to text:", textResponse);
         setResponse({ message: textResponse }); // Wrap text response in an object for consistency
@@ -132,18 +130,11 @@ export default function FloraCheck() {
       }
     } catch (error) {
       console.error("Error:", error);
-  
-      // Handle timeout or any other errors
-      if (error.message === "Request timed out") {
-        setErrorMessage("The request timed out. Please try again later.");
-      } else {
-        setErrorMessage(error.message || "An unexpected error occurred.");
-      }
+      setErrorMessage(error.message || "An unexpected error occurred.");
     } finally {
       setIsLoading(false);
     }
   };
-  
   
   const resetProcess = () => {
     setResponse(null);
@@ -169,11 +160,11 @@ export default function FloraCheck() {
     // Remove Markdown code block formatting (e.g., ```html or ```).
     html = html.replace(/```.*?\n/g, '').replace(/```/g, '');
 
-    // Remove the JSON-like "predicted_class" key and extract its value.
-    const predictedClassMatch = html.match(/"predicted_class":"(.*?)"/);
-    if (predictedClassMatch) {
-      html = html.replace(/"predicted_class":"(.*?)"/, ''); // Removes the predicted_class part
-    }
+    // Remove the JSON-like "predicted_class" key and its value.
+    html = html.replace(/"predicted_class"\s*:\s*"(.*?)"/, '').trim();
+
+    // Specifically remove "predicted_class :" from the string.
+    html = html.replace(/predicted_class\s*:/, '').trim();
 
     // Parse the remaining HTML to extract plain text.
     const parser = new DOMParser();
@@ -185,6 +176,7 @@ export default function FloraCheck() {
 
     return textContent;
 };
+
 
   return (
     <>
