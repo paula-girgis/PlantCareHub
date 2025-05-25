@@ -81,11 +81,11 @@ export default function AboutUs() {
             transition={{ duration: 1 }}
           >
             <img 
-              src={Doonya}
-              alt="Donia Zeid" 
+              src={Web}
+              alt="Web" 
               className="w-full h-auto object-cover rounded-xl mb-4"
             />
-            <h3 className="text-lg font-semibold text-gray-800">Donia Zeid</h3>
+            <h3 className="text-lg font-semibold text-gray-800">Web</h3>
             <p className="text-sm text-gray-600">FrontEnd Developer</p>
           </motion.div>
 
