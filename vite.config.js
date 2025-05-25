@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://plantcarehub-001-site1.otempurl.com',
+        target: 'http://plantcare.runasp.net/',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '')
       }
