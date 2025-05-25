@@ -3,10 +3,7 @@
 import React, { useState } from "react";
 import { motion } from 'framer-motion';
 import Web from '../../assets/gradMaterial/WEB2.jpeg'; 
-import Paula from '../../assets/gradMaterial/Paula Girgis.jpg'; 
-import Doonya from '../../assets/gradMaterial/Donia Ziad.jpg'; 
-import Menna from '../../assets/gradMaterial/Menna Magdy.jpg'; 
-import Akram from '../../assets/gradMaterial/Akram.png'; 
+ 
 
 export default function AboutUs() {
 
@@ -97,11 +94,11 @@ export default function AboutUs() {
             transition={{ duration: 1 }}
           >
             <img 
-              src={Paula}
-              alt="Paula Gerges" 
+              src={Web}
+              alt="Web" 
               className="w-full h-auto object-cover rounded-xl mb-4"
             />
-            <h3 className="text-lg font-semibold text-gray-800">Paula Gerges</h3>
+            <h3 className="text-lg font-semibold text-gray-800">Web</h3>
             <p className="text-sm text-gray-600">AI Developer</p>
           </motion.div>
 
@@ -113,11 +110,11 @@ export default function AboutUs() {
             transition={{ duration: 1 }}
           >
             <img 
-              src={Akram} 
-              alt="Akram Benyameen" 
+              src={Web} 
+              alt="Web" 
               className="w-full h-auto object-cover rounded-xl mb-4"
             />
-            <h3 className="text-lg font-semibold text-gray-800">Akram Benyameen</h3>
+            <h3 className="text-lg font-semibold text-gray-800">Web</h3>
             <p className="text-sm text-gray-600">BackEnd Developer</p>
           </motion.div>
 
@@ -129,11 +126,11 @@ export default function AboutUs() {
             transition={{ duration: 1 }}
           >
             <img 
-              src={Menna}
-              alt="Menna Magdy" 
+              src={Web}
+              alt="Web" 
               className="w-full h-auto object-cover rounded-xl mb-4"
             />
-            <h3 className="text-lg font-semibold text-gray-800">Menna Magdy</h3>
+            <h3 className="text-lg font-semibold text-gray-800">Web</h3>
             <p className="text-sm text-gray-600">UI/UX Designer</p>
           </motion.div>
 
