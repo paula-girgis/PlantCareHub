@@ -64,7 +64,7 @@ export default function Footer() {
        
             <li className="flex items-center justify-center md:justify-start mt-2">
               <i className="fa-solid fa-phone p-1" style={{ color: '#333' }}></i>
-              01204548235
+              +20 100 123 4567
             </li>
           </ul>
         </div>
