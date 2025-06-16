@@ -42,7 +42,7 @@ export default function ContactUs() {
             Your Voice Matters
             We love hearing from our community! Whether it’s a suggestion, a compliment, or something we can improve, your feedback helps us grow.
             Use our Feedback Form to share your thoughts.
-             <br /><span className='text-[#335c3a] p-3 font-bold'>Email: plantcare.hti@gmail.com</span> <br />
+             <br /><span className='text-[#335c3a] p-3 font-bold'>Email: plantcare.AUC@gmail.com</span> <br />
             Together, we can make your experience even better!
             </p>
         
@@ -60,7 +60,7 @@ export default function ContactUs() {
         <p className="text-gray-600 text-start text-sm mb-2">
         Need Help? We’re Here for You!
 Our support team is ready to assist with any questions, troubleshooting, or general inquiries. Whether it’s about our services, products, or anything else, reach out to us directly:
-<br /><span className='text-[#335c3a] p-3 font-bold'>Email: plantcare.hti@gmail.com</span> <br />
+<br /><span className='text-[#335c3a] p-3 font-bold'>Email: plantcare.AUC@gmail.com</span> <br />
 We strive to make your experience seamless!s.
         </p>
       </div>
@@ -71,7 +71,7 @@ We strive to make your experience seamless!s.
         <p className="text-gray-600 text-md leading-relaxed mb-6">
         Let’s Build Something Amazing Together
 Are you interested in partnering with us or discussing a business opportunity? We’re always open to collaboration and innovative ideas. Drop us a message, and let’s explore how we can work together:
-<br /><span className='text-[#335c3a] p-3 font-bold'>Email: plantcare.hti@gmail.com</span> <br />
+<br /><span className='text-[#335c3a] p-3 font-bold'>Email: plantcare.AUC@gmail.com</span> <br />
 Great things happen when we connect!
         </p>
     
