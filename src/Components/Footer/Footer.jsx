@@ -17,7 +17,7 @@ export default function Footer() {
         {/* Social Media Icons */}
         <div className="flex space-x-6 mb-6 md:mb-0">
           <a
-            href="https://www.instagram.com/plantcarehti/"
+            href="https://www.instagram.com/plantcare.acu/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-600 hover:text-white bg-gray-200 hover:bg-green-800 rounded-full p-3 transition ease-in-out duration-300"
@@ -25,7 +25,7 @@ export default function Footer() {
             <i className="fa-brands fa-facebook-f"></i>
           </a>
           <a
-            href="https://www.instagram.com/plantcarehti/"
+            href="https://www.instagram.com/plantcare.acu/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-600 hover:text-white bg-gray-200 hover:bg-green-800 rounded-full p-3 transition ease-in-out duration-300"
@@ -33,7 +33,7 @@ export default function Footer() {
             <i className="fa-brands fa-instagram"></i>
           </a>
           <a
-            href="https://www.instagram.com/plantcarehti/"
+            href="https://www.instagram.com/plantcare.acu/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-600 hover:text-white bg-gray-200 hover:bg-green-800 rounded-full p-3 transition ease-in-out duration-300"
@@ -41,7 +41,7 @@ export default function Footer() {
             <i className="fa-brands fa-twitter"></i>
           </a>
           <a
-            href="https://www.instagram.com/plantcarehti/"
+            href="https://www.instagram.com/plantcare.acu/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-600 hover:text-white bg-gray-200 hover:bg-green-800 rounded-full p-3 transition ease-in-out duration-300"
