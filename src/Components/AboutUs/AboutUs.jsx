@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { motion } from 'framer-motion';
 import Web from '../../assets/gradMaterial/WEB2.jpeg'; 
-import A from '../../assets/gradMaterial/ashraf.jpg'; // ✅ safe import
+import A from '../../assets/gradMaterial/ashraf.jpg'; // ✅ image import
 
 export default function AboutUs() {
-
   const [scrollDirection, setScrollDirection] = useState('down');
 
   const scrollToSection = () => {
@@ -70,7 +69,7 @@ export default function AboutUs() {
                 <img 
                   src={A} 
                   alt="AUC Team" 
-                  className="w-full h-auto object-cover rounded-xl mb-4"
+                  className="w-64 h-64 object-cover object-center mx-auto rounded-xl mb-4"
                 />
                 <h3 className="text-lg font-semibold text-gray-800">PlantCare Team</h3>
                 <p className="text-sm text-gray-600">Developers & Designers from AUC</p>
