@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from 'framer-motion';
-import Web from '../../assets/gradMaterial/WEB2.jpeg'; 
-import AUC from '../../assets/gradMaterial/AUC.png'; // make sure this path is correct
+import Web from '../../assets/gradMaterial/WEB2.jpeg';
+import AUC from '../../assets/gradMaterial/AUC.png'; // Make sure this path is valid
 
 export default function AboutUs() {
   const [scrollDirection, setScrollDirection] = useState('down');
@@ -18,12 +18,12 @@ export default function AboutUs() {
 
   return (
     <>
-      <div className="regiserBack"> 
+      <div className="regiserBack">
         <div className="container regiserBack mx-auto min-h-screen py-20">
-          <motion.h1 
-            initial={{ opacity: 0, y: -50 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ duration: 1 }} 
+          <motion.h1
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
             className="text-6xl font-extrabold font text-green-950 text-center py-8"
           >
             "Minds Behind PlantCare"
@@ -31,10 +31,10 @@ export default function AboutUs() {
 
           {/* Content Section */}
           <section className="max-w-7xl mx-auto py-16 grid grid-cols-1 gap-12">
-            <motion.div 
-              initial={{ opacity: 0, x: -100 }} 
-              animate={{ opacity: 1, x: 0 }} 
-              transition={{ duration: 1.5 }} 
+            <motion.div
+              initial={{ opacity: 0, x: -100 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.5 }}
               className="flex flex-col justify-center px-8"
             >
               <p className="text-gray-900 text-xl container mx-auto text-center leading-relaxed mb-6">
@@ -42,31 +42,31 @@ export default function AboutUs() {
               </p>
             </motion.div>
 
-            <motion.div 
-              initial={{ opacity: 0, x: 100 }} 
-              animate={{ opacity: 1, x: 0 }} 
+            <motion.div
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.5 }}
             >
-              <img 
-                src={Web} 
-                alt="Team working" 
+              <img
+                src={Web}
+                alt="Team working"
                 className="w-full h-full container mx-auto object-cover rounded-xl shadow-2xl"
               />
             </motion.div>
           </section>
 
-          {/* Replacing Team Section with AUC Image */}
-          <section className="max-w-7xl mx-auto px-4 py-12">
-            <motion.img 
-              src={AUC} 
-              alt="AUC Logo or Team Photo" 
-              className="w-full h-auto mx-auto rounded-xl shadow-xl object-contain"
+          {/* Final Image Section */}
+          <section className="max-w-5xl mx-auto px-4 py-12">
+            <motion.img
+              src={AUC}
+              alt="AUC Logo or Team Photo"
+              onError={(e) => e.currentTarget.style.display = 'none'}
+              className="w-full h-auto rounded-xl shadow-xl object-contain"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1 }}
             />
           </section>
-
         </div>
       </div>
 
