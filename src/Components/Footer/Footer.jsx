@@ -59,12 +59,12 @@ export default function Footer() {
             </li>
             <li className="flex items-center justify-center md:justify-start mt-2">
               <i className="fa-solid fa-envelope p-1" style={{ color: '#333' }}></i>
-              plantcare.hti@gmail.com
+              plantcare.ACU@gmail.com
             </li>
        
             <li className="flex items-center justify-center md:justify-start mt-2">
               <i className="fa-solid fa-phone p-1" style={{ color: '#333' }}></i>
-              +20 100 123 4567
+              +20 1069772900
             </li>
           </ul>
         </div>
