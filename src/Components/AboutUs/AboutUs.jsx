@@ -68,7 +68,7 @@ export default function AboutUs() {
                 transition={{ duration: 1 }}
               >
                 <img 
-                  src={a} 
+                  src={A} 
                   alt="AUC Team" 
                   className="w-full h-auto object-cover rounded-xl mb-4"
                 />
