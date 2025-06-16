@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { motion } from 'framer-motion';
 import Web from '../../assets/gradMaterial/WEB2.jpeg'; 
-import AUC from '../../assets/gradMaterial/AUC.png'; // Make sure this path is valid
-
+import AUC from '../../assets/gradMaterial/AUC.png'; // ✅ safe import
 
 export default function AboutUs() {
 
@@ -69,7 +68,7 @@ export default function AboutUs() {
                 transition={{ duration: 1 }}
               >
                 <img 
-                  src={require('../../assets/gradMaterial/AUC.png')} 
+                  src={AUC} 
                   alt="AUC Team" 
                   className="w-full h-auto object-cover rounded-xl mb-4"
                 />
