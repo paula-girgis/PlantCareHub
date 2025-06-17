@@ -72,7 +72,7 @@ export default function AboutUs() {
                   className="w-64 h-64 object-cover object-center mx-auto rounded-xl mb-4"
                 />
                 <h3 className="text-lg font-semibold text-gray-800">PlantCare Team</h3>
-                <p className="text-sm text-gray-600">Developers & Designers from AUC</p>
+                <p className="text-sm text-gray-600">Developers & Designers from ACU</p>
               </motion.div>
             </div>
           </section>
