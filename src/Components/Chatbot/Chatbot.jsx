@@ -93,9 +93,10 @@ export default function Chatbot() {
             />
             <button
               onClick={handleSearch}
+              aria-label="Send question"
               className="ml-4 text-green-800 hover:text-green-600"
             >
-              <i class="fa-solid fa-arrow-right font-bold text-2xl"></i>
+              <i className="fa-solid fa-arrow-right font-bold text-2xl"></i>
             </button>
           </div>
         </div>
