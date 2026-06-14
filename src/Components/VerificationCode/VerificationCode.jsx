@@ -1,7 +1,7 @@
 
 
 
-import axios from 'axios';
+import apiClient from '../../api/client';
 import { useFormik } from 'formik';
 import React, { useState } from 'react'
 import {useNavigate } from 'react-router-dom';
@@ -20,7 +20,7 @@ export default function verificationcode() {
     
             try {
               setisLoading(true)
-                let { data } = await axios.post('https://ecommerce.routemisr.com/api/v1/auth/verifyResetCode', values)
+                let { data } = await apiClient.post('/User/verify-reset-code', values)
                console.log(data);
 
                //Backend
