@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
 export default function FloraCheck() {
@@ -11,6 +11,17 @@ export default function FloraCheck() {
   const videoRef = useRef(null);
   const streamRef = useRef(null);
   const [scrollDirection, setScrollDirection] = useState("down");
+
+  // Make sure the camera is released if the user navigates away while it's open,
+  // otherwise the webcam stays active (light stays on) after leaving the page.
+  useEffect(() => {
+    return () => {
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop());
+        streamRef.current = null;
+      }
+    };
+  }, []);
 
   const scrollToSection = () => {
     if (scrollDirection === "down") {
