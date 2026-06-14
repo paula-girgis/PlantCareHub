@@ -2,7 +2,7 @@
 
 import React, { useContext } from 'react'
 import { useState } from 'react' 
-import axios from 'axios';
+import apiClient from '../../api/client';
 import * as Yup from 'yup'
 import { useFormik } from 'formik';
 import {  Link, useNavigate } from 'react-router-dom';
@@ -32,7 +32,7 @@ export default function Login() {
   async function handleLogin(vals) {
     setisLoading(true);
     try {
-      const response = await axios.post('/api/User/login', vals);
+      const response = await apiClient.post('/User/login', vals);
       
       if (response?.data?.message === 'Login Successful') {
         localStorage.setItem('userToken', response?.data?.token);
