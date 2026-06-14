@@ -7,8 +7,9 @@ export default function UserContextProvider(props){
 
     const [userLogin, setUserLogin] = useState(null)
     useEffect( ()=> {
-        if(localStorage.getItem('userToken') !== null ){
-            setUserLogin( localStorage.getItem('userToken') )
+        const token = localStorage.getItem('userToken');
+        if (token) {
+            setUserLogin(token)
         }
 
     }, [] )
