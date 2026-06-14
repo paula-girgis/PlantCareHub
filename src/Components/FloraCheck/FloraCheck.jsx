@@ -165,6 +165,25 @@ export default function FloraCheck() {
     return textContent;
   };
 
+  // Safely split the chatbot reply into Symptoms / Cause / Treatment.
+  // The reply does not always contain every label, so we guard against
+  // missing sections instead of calling .trim() on undefined (which crashes).
+  const parseReply = (reply) => {
+    const text = stripHtml(reply || "");
+    const section = (start, end) => {
+      const startIdx = start ? text.indexOf(start) : 0;
+      if (start && startIdx === -1) return "";
+      const from = start ? startIdx + start.length : 0;
+      const endIdx = end ? text.indexOf(end, from) : -1;
+      return text.slice(from, endIdx === -1 ? undefined : endIdx).trim();
+    };
+    return {
+      symptoms: section("", "Cause:"),
+      cause: section("Cause:", "Treatment:"),
+      treatment: section("Treatment:", ""),
+    };
+  };
+
   return (
     <>
       {isLoading && (
@@ -197,28 +216,20 @@ export default function FloraCheck() {
               <div
                 className="bg-gray-800 p-4 rounded-lg shadow-md"
                 dangerouslySetInnerHTML={{
-                  __html: `
+                  __html: (() => {
+                    const { symptoms, cause, treatment } = parseReply(
+                      response.chatbotReply
+                    );
+                    return `
                     <div style="text-align: justify; font-family: Arial, sans-serif; line-height: 1.6;">
-                      <strong style="color:rgb(7, 239, 123);">Symptoms:</strong> ${stripHtml(
-                        response.chatbotReply
-                      )
-                        .split("Cause:")[0]
-                        .trim()}
+                      <strong style="color:rgb(7, 239, 123);">Symptoms:</strong> ${symptoms}
                       <br><br>
-                      <strong style="color:rgb(7, 239, 123);">Cause:</strong> ${stripHtml(
-                        response.chatbotReply
-                      )
-                        .split("Treatment:")[0]
-                        .split("Cause:")[1]
-                        .trim()}
+                      <strong style="color:rgb(7, 239, 123);">Cause:</strong> ${cause}
                       <br><br>
-                      <strong style="color:rgb(7, 239, 123);">Treatment:</strong> ${stripHtml(
-                        response.chatbotReply
-                      )
-                        .split("Treatment:")[1]
-                        .trim()}
+                      <strong style="color:rgb(7, 239, 123);">Treatment:</strong> ${treatment}
                     </div>
-                  `,
+                  `;
+                  })(),
                 }}
               />
               <button
