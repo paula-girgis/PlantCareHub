@@ -30,7 +30,6 @@ export default function Landing() {
 
   const isUserLoggedIn = () => {
     const userToken = localStorage.getItem('userToken');
-    console.log("User Token: ", userToken); // Debugging line
     return userToken !== null; // User is logged in if there is a token
   };
   

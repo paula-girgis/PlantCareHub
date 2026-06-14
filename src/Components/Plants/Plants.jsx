@@ -47,7 +47,6 @@ export default function Plants() {
     setisLoading(true);
     axios.get('/api/library/getall')
       .then(({ data }) => {
-        console.log(data);
         setPlants(data);
         setisLoading(false);
       });

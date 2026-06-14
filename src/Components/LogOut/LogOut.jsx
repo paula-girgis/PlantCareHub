@@ -14,7 +14,6 @@ async function logout() {
         if (response.ok) {
             const result = await response.json();
             alert(result.message);  // Display success message
-            console.log(result.message);
 
             localStorage.removeItem("userToken"); 
             window.location.replace("/login");

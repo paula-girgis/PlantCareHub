@@ -22,7 +22,6 @@ export default function ForgetPassword() {
       });
 
     if (data?.message === "you will receive reset instructions,check your email.") {
-      console.log(data.message);
       setIsLinkSent(true);
       setisLoading(false);
     }

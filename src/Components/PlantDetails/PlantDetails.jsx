@@ -13,7 +13,6 @@ export default function PlantDetails() {
     function getPlantDetails(id) {
         axios.get(`/api/library/${id}`)
             .then(({ data }) => {
-                console.log(data);
                 setPlantDetails(data);  
                 setIsLoading(false);
             })

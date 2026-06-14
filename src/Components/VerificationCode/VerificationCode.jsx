@@ -21,7 +21,6 @@ export default function verificationcode() {
             try {
               setisLoading(true)
                 let { data } = await apiClient.post('/User/verify-reset-code', values)
-               console.log(data);
 
                //Backend
                if(data.status === "Success")
