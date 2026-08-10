@@ -1,13 +1,12 @@
 
 
 
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
 
 function EnviroAnalysis() {
   const [plants, setPlants] = useState([]);
-  const [selectedPlantId, setSelectedPlantId] = useState(null);
   const [plantDetails, setPlantDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(false); 
   const detailsRef = useRef(null); 
@@ -41,7 +40,6 @@ function EnviroAnalysis() {
   }, []);
 
   const handleImageClick = (id) => {
-    setSelectedPlantId(id);
     setIsLoading(true);
     axios
       .get(`/api/EviroAnalysis/${id}`)
@@ -62,10 +60,10 @@ function EnviroAnalysis() {
   
       <div className="text-center py-20">
         <h1 className="text-5xl font-bold mb-4  font Color animate-bounce">
-          "Analyze Your Plant's Environment"
+          &ldquo;Analyze Your Plant&apos;s Environment&rdquo;
         </h1>
         <p className="text-gray-900 animate-pulse text-xl">
-          Track and optimize your plant's environment for healthy growth.
+          Track and optimize your plant&apos;s environment for healthy growth.
         </p>
  
 
@@ -123,25 +121,25 @@ function EnviroAnalysis() {
       <div className="grid grid-cols-2 gap-6">
         {/* Temperature */}
         <div className="flex flex-col items-center justify-center p-5 bg-red-50 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-          <span className="text-red-500 text-4xl font-extrabold mb-2"><i class="fa-solid fa-temperature-three-quarters"></i></span>
+          <span className="text-red-500 text-4xl font-extrabold mb-2"><i className="fa-solid fa-temperature-three-quarters"></i></span>
           <p className="text-red-600 font-bold">Temperature</p>
           <p className="text-gray-700">Ideal: {plantDetails.tempreture} °C</p>
         </div>
         {/* Humidity */}
         <div className="flex flex-col items-center justify-center p-5 bg-purple-50 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-          <span className="text-purple-500 text-4xl font-extrabold mb-2"><i class="fa-solid fa-droplet"></i></span>
+          <span className="text-purple-500 text-4xl font-extrabold mb-2"><i className="fa-solid fa-droplet"></i></span>
           <p className="text-purple-600 font-bold">Humidity</p>
           <p className="text-gray-700">Ideal: {plantDetails.humidity}%</p>
         </div>
         {/* Soil Moisture */}
         <div className="flex flex-col items-center justify-center p-5 bg-blue-50 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-          <span className="text-blue-500 text-4xl font-extrabold mb-2"><i class="fa-brands fa-pagelines"></i></span>
+          <span className="text-blue-500 text-4xl font-extrabold mb-2"><i className="fa-brands fa-pagelines"></i></span>
           <p className="text-blue-600 font-bold">Soil Moisture</p>
           <p className="text-gray-700">Ideal: {plantDetails.soilHumidity}%</p>
         </div>
         {/* Light Intensity */}
         <div className="flex flex-col items-center justify-center p-5 bg-yellow-50 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-          <span className="text-yellow-500 text-4xl font-extrabold mb-2"><i class="fa-solid fa-sun"></i></span>
+          <span className="text-yellow-500 text-4xl font-extrabold mb-2"><i className="fa-solid fa-sun"></i></span>
           <p className="text-yellow-600 font-bold">Light Intensity</p>
           <p className="text-gray-700">Ideal: {plantDetails.lightIntensity} Lux</p>
         </div>

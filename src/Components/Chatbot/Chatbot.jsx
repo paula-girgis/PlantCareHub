@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Footer from "../Footer/Footer";
 import { motion } from 'framer-motion';
 
@@ -148,4 +148,3 @@ export default function Chatbot() {
     </>
   );
 }
-

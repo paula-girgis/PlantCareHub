@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from 'framer-motion';
 import Web from '../../assets/gradMaterial/WEB2.jpeg'; 
 import A from '../../assets/gradMaterial/ashraf.jpg'; // ✅ image import
@@ -26,7 +26,7 @@ export default function AboutUs() {
             transition={{ duration: 1 }} 
             className="text-6xl font-extrabold font text-green-950 text-center py-8"
           >
-            "Minds Behind PlantCare"
+            &ldquo;Minds Behind PlantCare&rdquo;
           </motion.h1>
 
           {/* Content Section */}

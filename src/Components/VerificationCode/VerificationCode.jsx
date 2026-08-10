@@ -3,17 +3,14 @@
 
 import apiClient from '../../api/client';
 import { useFormik } from 'formik';
-import React, { useState } from 'react'
+import { useState } from 'react'
 import {useNavigate } from 'react-router-dom';
 
-export default function verificationcode() {
+export default function VerificationCode() {
 
     const navigate = useNavigate();
     let [msg, setMsg] = useState('')
     const [isLoading , setisLoading] = useState(false);
-
-    const [error, setError] = useState(null);
-
 
   async function handleResetPassword(values) {
 
@@ -57,7 +54,6 @@ export default function verificationcode() {
                  <span className="font-medium">{msg}</span>
         </div> : ''}
 
-            {error ? (<div className="alert alert-danger mb-3 p-2 text-center">{error}</div>) : null}
             <h2 className="p-6 Color text-lg font-bold mb-6 shadow-sm text-center">You should have recieved a reset Link, Check Your mail </h2>
             
             <form className="max-w-lg mx-auto" onSubmit={formik.handleSubmit}>
@@ -81,4 +77,3 @@ export default function verificationcode() {
     </>
     
 }
-

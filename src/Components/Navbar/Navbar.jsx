@@ -62,7 +62,7 @@ export default function Navbar() {
                   </NavLink>
                 </li>
                 <li className="text-center my-2">
-                  <NavLink to="eviroAnalysis" className={linkClasses} onClick={() => setIsMenuOpen(false)}>
+                  <NavLink to="enviroAnalysis" className={linkClasses} onClick={() => setIsMenuOpen(false)}>
                     EnviroAnalysis
                   </NavLink>
                 </li>

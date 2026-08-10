@@ -1,9 +1,6 @@
 
 
 
-import React from 'react'
-// import notFound from '../../assets/gradMaterial/notfound.png'; 
-// import notFound2 from '../../assets/gradMaterial/notfound2.png'; 
 import notFound2 from '../../assets/gradMaterial/pana1.png'; 
 
 

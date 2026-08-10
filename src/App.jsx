@@ -1,5 +1,5 @@
 import './App.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import Layout from './Components/Layout/Layout'
 import Register from './Components/Register/Register'
 import Login from './Components/Login/Login'
@@ -29,7 +29,8 @@ const router = createBrowserRouter([
     {path: 'home', element: <ProtectedRoute><Home/></ProtectedRoute> },
     {path: 'library', element: <ProtectedRoute><Library/></ProtectedRoute>},
     {path: 'floraCheck', element: <ProtectedRoute><FloaraCheck/></ProtectedRoute>},
-    {path: 'eviroAnalysis', element: <ProtectedRoute><EnviroAnalysis/></ProtectedRoute>},
+    {path: 'enviroAnalysis', element: <ProtectedRoute><EnviroAnalysis/></ProtectedRoute>},
+    {path: 'eviroAnalysis', element: <Navigate to="/enviroAnalysis" replace />},
     {path: 'chatbot', element: <ProtectedRoute><Chatbot/></ProtectedRoute>},
     {path: 'aboutUs', element: <ProtectedRoute><AboutUs/></ProtectedRoute>},
     {path: 'contactUs', element: <ProtectedRoute><ContactUs/></ProtectedRoute>},
