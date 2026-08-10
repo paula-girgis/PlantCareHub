@@ -1,5 +1,5 @@
 
-async function logout() {
+export default async function logout() {
     const token = localStorage.getItem("userToken");
     if (!token) {
         alert("User is not logged in.");

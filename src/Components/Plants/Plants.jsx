@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Slider from "react-slick";
@@ -91,7 +91,7 @@ export default function Plants() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          "Every drooping leaf is a story untold"
+          &ldquo;Every drooping leaf is a story untold&rdquo;
         </motion.h2>
 
         {/* Slider */}

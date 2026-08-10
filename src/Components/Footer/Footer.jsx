@@ -1,5 +1,4 @@
 
-import React from 'react'
 import plantCareLogo from '../../assets/gradMaterial/logo.png';
 
 export default function Footer() {

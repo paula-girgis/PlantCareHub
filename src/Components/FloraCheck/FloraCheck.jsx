@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
 export default function FloraCheck() {
@@ -131,7 +131,7 @@ export default function FloraCheck() {
         result = await response.json();
         setResponse(result);
         setErrorMessage(null);
-      } catch (jsonError) {
+      } catch {
         const textResponse = await response.text();
         console.warn("Failed to parse JSON, falling back to text:", textResponse);
         setResponse({ message: textResponse });
