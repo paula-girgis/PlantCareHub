@@ -40,6 +40,12 @@ function EnviroAnalysis() {
       });
   }, []);
 
+  useEffect(() => {
+    if (plantDetails) {
+      detailsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [plantDetails]);
+
   const handleImageClick = (id) => {
     setSelectedPlantId(id);
     setIsLoading(true);
@@ -48,7 +54,6 @@ function EnviroAnalysis() {
       .then((response) => {
         setPlantDetails(response.data);
         setIsLoading(false);
-        detailsRef.current?.scrollIntoView({ behavior: "smooth" });
       })
       .catch((error) => {
         console.error("There was an error fetching the plant details!", error);
@@ -80,25 +85,26 @@ function EnviroAnalysis() {
       {!isLoading && (
         <div className="grid py-10 container cursor-pointer mx-auto grid-cols-2 md:grid-cols-4 gap-10 my-12">
           {plants.map((plant, index) => (
-            <div
+            <button
               key={index}
-              className="group bg-transparent pb-3 text-center rounded-lg shadow-lg overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl"
+              type="button"
+              className="group cursor-pointer bg-transparent pb-3 text-center rounded-lg shadow-lg overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl"
+              onClick={() => handleImageClick(plant.id)}
             >
               <img
                 src={plant.image}
                 alt={plant.plantName}
                 className="w-full h-60 object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
-                onClick={() => handleImageClick(plant.id)}
               />
-              <motion.div
-                className="text-center py-4 font-semibold text-gray-800 text-lg"
+              <motion.span
+                className="block text-center py-4 font-semibold text-gray-800 text-lg"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
               >
                 {plant.plantName}
-              </motion.div>
-            </div>
+              </motion.span>
+            </button>
           ))}
         </div>
       )}
