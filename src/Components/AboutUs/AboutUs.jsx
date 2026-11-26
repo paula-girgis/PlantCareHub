@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion } from 'framer-motion';
 import Web from '../../assets/gradMaterial/WEB2.jpeg'; 
-import A from '../../assets/gradMaterial/ashraf.jpg'; // ✅ image import
 
 export default function AboutUs() {
   const [scrollDirection, setScrollDirection] = useState('down');
@@ -55,27 +54,6 @@ export default function AboutUs() {
             </motion.div>
           </section>
 
-          {/* Team Section */}
-          <section className="max-w-7xl mx-auto px-10 py-10">
-            <h2 className="text-6xl text-center text-green-950 font-semibold py-6 font">Our Team</h2>
-
-            <div className="grid grid-cols-1 mt-6 gap-12">
-              <motion.div 
-                className="text-center bg-white p-6 shadow-lg rounded-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-500"
-                initial={{ opacity: 0, y: 50 }} 
-                animate={{ opacity: 1, y: 0 }} 
-                transition={{ duration: 1 }}
-              >
-                <img 
-                  src={A} 
-                  alt="AUC Team" 
-                  className="w-64 h-64 object-cover object-center mx-auto rounded-xl mb-4"
-                />
-                <h3 className="text-lg font-semibold text-gray-800">PlantCare Team</h3>
-                <p className="text-sm text-gray-600">Developers & Designers from ACU</p>
-              </motion.div>
-            </div>
-          </section>
         </div>
       </div>
 
